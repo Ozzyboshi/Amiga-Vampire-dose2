@@ -214,10 +214,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   if(fullscreen)
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
   else
   {
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE);//|SDL_DOUBLEBUF);
     SDL_WM_SetCaption("dose 2 by mfx",NULL);
   }
 
@@ -227,12 +227,12 @@ int main(int argc, char *argv[]) {
   t=0;
   bytesleft=0;
 //  if (NOAUDIO==1) system("run playogg data/italo162.ogg");
-  initdemo();
+  
 
   Mix_Music *music = NULL;
   Mix_Chunk *scratch = NULL;
 //Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 512 ) == -1 )
     {
           fprintf(stderr,"Error mix audio\n");
         return 1;    
@@ -245,11 +245,11 @@ int main(int argc, char *argv[]) {
 
  //     return 1;
     }
-  
-//if (NOAUDIO==1) system("run vorbisplayer data/italo162.ogg");
-  time0=SDL_GetTicks();
-  if (NOAUDIO==0) SDL_PauseAudio(0);
-  //If there is no music playing
+
+    
+
+
+      //If there is no music playing
   if( Mix_PlayingMusic() == 0 )
   {
     if( Mix_PlayMusic( music, 0 ) == -1 )
@@ -258,6 +258,15 @@ int main(int argc, char *argv[]) {
       return 1;
     }    
   }
+
+      initdemo();
+
+
+  
+//if (NOAUDIO==1) system("run vorbisplayer data/italo162.ogg");
+  time0=SDL_GetTicks();
+  if (NOAUDIO==0) SDL_PauseAudio(0);
+  
 
   SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
   SDL_EventState(SDL_QUIT, SDL_ENABLE);
