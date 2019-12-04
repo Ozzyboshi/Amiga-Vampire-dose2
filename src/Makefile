@@ -6,9 +6,9 @@ LIBVORBIS = -L/opt/amiga/libvorbis/lib -lvorbisfile -lvorbis -logg
 #SDLPREFIX = /usr/local/bin/
 #CFLAGS += -DOSX
 # --
-SDLBASEPATH=/opt/arti/libsdl
+SDLBASEPATH=/opt/amiga/ammx/libSDL12
 LIBSDL = -L$(SDLBASEPATH) -lSDL
-INCLUDESDL = -I$(SDLBASEPATH)/include
+INCLUDESDL = -I$(SDLBASEPATH)/include/SDL
 CFLAGS = -ffast-math -m68040 -m68881 -mhard-float -noixemul -fomit-frame-pointer  -Os $(INCLUDESDL) -I/opt/amiga/libvorbis/include/vorbis -I/opt/amiga/libvorbis/include -I/opt/amiga/SDL_mixer/include
 
 
