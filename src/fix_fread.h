@@ -1,0 +1,1 @@
+void fix_fread(void *,int ,int ,FILE *);
