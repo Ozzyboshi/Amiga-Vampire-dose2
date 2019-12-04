@@ -232,7 +232,7 @@ int main(int argc, char *argv[]) {
   Mix_Music *music = NULL;
   Mix_Chunk *scratch = NULL;
 //Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 512 ) == -1 )
+    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 4096*2 ) == -1 )
     {
           fprintf(stderr,"Error mix audio\n");
         return 1;    
