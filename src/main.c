@@ -143,22 +143,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  Mix_Music *music = NULL;
-  Mix_Chunk *scratch = NULL;
-//Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
-    {
-          fprintf(stderr,"Error mix audio\n");
-        return 1;    
-    }
-    music = Mix_LoadMUS( "data/italo160.wav" );
-    if (music==NULL)
-    {
-      fprintf(stderr,"error opening wav\n");
-          printf("Mix_LoadMUS(\"music.mp3\"): %s\n", Mix_GetError());
-
- //     return 1;
-    }
+  
     
 
   
@@ -243,6 +228,23 @@ int main(int argc, char *argv[]) {
   bytesleft=0;
 //  if (NOAUDIO==1) system("run playogg data/italo162.ogg");
   initdemo();
+
+  Mix_Music *music = NULL;
+  Mix_Chunk *scratch = NULL;
+//Initialize SDL_mixer
+    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+    {
+          fprintf(stderr,"Error mix audio\n");
+        return 1;    
+    }
+    music = Mix_LoadMUS( "data/italo160.wav" );
+    if (music==NULL)
+    {
+      fprintf(stderr,"error opening wav\n");
+          printf("Mix_LoadMUS(\"music.mp3\"): %s\n", Mix_GetError());
+
+ //     return 1;
+    }
   
 //if (NOAUDIO==1) system("run vorbisplayer data/italo162.ogg");
   time0=SDL_GetTicks();
