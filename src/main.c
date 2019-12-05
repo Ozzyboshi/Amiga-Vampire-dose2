@@ -227,17 +227,17 @@ int main(int argc, char *argv[]) {
   t=0;
   bytesleft=0;
 //  if (NOAUDIO==1) system("run playogg data/italo162.ogg");
-  
-
+  #define NUOVAMUSICA
+#ifdef NUOVAMUSICA
   Mix_Music *music = NULL;
   Mix_Chunk *scratch = NULL;
 //Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, MIX_DEFAULT_FORMAT, 2, 4096*4 ) == -1 )
+    if( Mix_OpenAudio( 8000, AUDIO_S16LSB, 1, 4096*2 ) == -1 )
     {
           fprintf(stderr,"Error mix audio\n");
         return 1;    
     }
-    music = Mix_LoadMUS( "data/italo160.wav" );
+    music = Mix_LoadMUS( "data/italo160mono.wav" );
     if (music==NULL)
     {
       fprintf(stderr,"error opening wav\n");
@@ -246,11 +246,16 @@ int main(int argc, char *argv[]) {
  //     return 1;
     }
 
+  
+
     
-      initdemo();
+     
+#endif
+ 
 
-
-      //If there is no music playing
+   initdemo();
+#ifdef NUOVAMUSICA
+           //If there is no music playing
   if( Mix_PlayingMusic() == 0 )
   {
     if( Mix_PlayMusic( music, 0 ) == -1 )
@@ -259,18 +264,24 @@ int main(int argc, char *argv[]) {
       return 1;
     }    
   }
+  #endif
 
-  while( Mix_PlayingMusic() == 0 ) {
+/*if (NOAUDIO==0) SDL_PauseAudio(0);
+    while( Mix_PlayingMusic() == 0  ) {
     time0=SDL_GetTicks();
-  }
+  }*/
+  
+
+     
+
+
 
 
 
   
 //if (NOAUDIO==1) system("run vorbisplayer data/italo162.ogg");
   time0=SDL_GetTicks();
-  if (NOAUDIO==0) SDL_PauseAudio(0);
-  
+
 
   SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
   SDL_EventState(SDL_QUIT, SDL_ENABLE);
@@ -354,7 +365,9 @@ int main(int argc, char *argv[]) {
 
 
   if (NOAUDIO==0) ov_clear(&oggi);
+#ifdef NUOVAMUSICA
   Mix_FreeMusic( music );
+#endif
   Mix_CloseAudio();
 
   fclose(fp);
