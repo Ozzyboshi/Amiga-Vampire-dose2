@@ -19,7 +19,7 @@ CFLAGS = -ffast-math -m68040 -m68881 -mhard-float -noixemul -fomit-frame-pointer
 objs = alue.o argb.o blob.o demo.o layer.o line.o main.o obu2d.o  palette.o schaibe.o taso.o
 
 all dose2: $(objs)
-	$(CC)  -o dose2 $(objs) $(CFLAGS) -L/opt/amiga/SDL_mixer/lib -lSDL_mixer  -L/tmp   $(LIBSDL) $(LIBVORBIS)  -L/opt/amiga/zlib-package/lib -lz -ldebug /opt/amiga/m68k-amigaos/lib/libm.a
+	$(CC)  -o dose2 $(objs) $(CFLAGS) -L/opt/amiga/SDL_mixer/lib -lSDL_mixer  -L/tmp   $(LIBSDL) $(LIBVORBIS)  -L/opt/amiga/zlib-package/lib -lz -ldebug -lm
 #$(CC) -o dose2  $(objs) $(CFLAGS)   -L/opt/amiga/m68k-amigaos/lib -L /opt/amiga/SDL_mixer/lib -lSDL_mixer -L/opt/amiga/libvorbis/lib -lvorbisfile -lvorbis -logg  -lSDL -ldebug /opt/amiga/m68k-amigaos/lib/libm.a
 #m68k-amigaos-gcc -o dose2  $(objs) -noixemul -Os -Wall -Wno-unused -m68040 -mhard-float -fomit-frame-pointer  -L/opt/amiga/m68k-amigaos/lib -L /opt/amiga/SDL_mixer/lib -lSDL_mixer -L/opt/amiga/libvorbis/lib -lvorbisfile -lvorbis -logg  -lSDL -ldebug /opt/amiga/m68k-amigaos/lib/libm.a
 #m68k-amigaos-strip -g dose2

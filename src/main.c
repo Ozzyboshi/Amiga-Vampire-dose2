@@ -12,6 +12,7 @@
 #include "vorbisfile.h"
 //#include "ogdecode.h"
 #include "SDL_mixer.h"
+#include <unistd.h>
 
 #include <math.h>
 
@@ -251,10 +252,8 @@ int main(int argc, char *argv[]) {
     
      
 #endif
- 
 
-   initdemo();
-#ifdef NUOVAMUSICA
+    #ifdef NUOVAMUSICA
            //If there is no music playing
   if( Mix_PlayingMusic() == 0 )
   {
@@ -262,9 +261,32 @@ int main(int argc, char *argv[]) {
     {
       fprintf(stderr,"Error playing music\n");
       return 1;
-    }    
+    }
+    while( Mix_PlayingMusic() == 0  ) {}
+      Mix_PauseMusic();
+
+       sleep(2);
+
   }
   #endif
+ 
+
+   initdemo();
+
+     int musicstarted=0;
+
+    if (musicstarted==0)
+    {
+             #ifdef NUOVAMUSICA
+        //Mix_Resume(-1);
+      Mix_ResumeMusic();
+
+        musicstarted=1;
+#endif
+    }
+
+
+
 
 /*if (NOAUDIO==0) SDL_PauseAudio(0);
     while( Mix_PlayingMusic() == 0  ) {
@@ -286,7 +308,9 @@ int main(int argc, char *argv[]) {
   SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
   SDL_EventState(SDL_QUIT, SDL_ENABLE);
 
+
   while (!stopnow) {
+
     //char *vm;
     //Lfb *l;
     //static int oldf;
@@ -325,6 +349,7 @@ int main(int argc, char *argv[]) {
     {
 //    float f=(aikah/44100.0/4.0/60.0)*132.3412*4 - aikaero*32;
     float f=(timex/1000.0/60.0)*132.3412*4 - aikaero*32;
+  
     rundemo(f);//-fsin2(f*.25)*.0);
     }
 
