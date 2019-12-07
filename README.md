@@ -1,4 +1,4 @@
-# dose2
+# DOSE2 for Amiga Classic (+AMMX for Vampire accellerators)
 This is an Amiga port of an old demo released on 2001 by Mfx. 
 
 According to the author this demo does not feature any racism (with italians) and I agree with him. 
