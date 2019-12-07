@@ -143,6 +143,8 @@ int btw(float t, float a, float b) { return t>=a && t<b; }
 void rundemo(float t) {
   int i;
   static float ot;
+  //return; //ALESSIO
+
   float tt=(t+fsin2(t*.25)*.0)*0.15;
   float open=0;
   Palette *cols1=new_pals3(glass, 4,
@@ -218,7 +220,7 @@ void rundemo(float t) {
 
 
 
-
+//return; //ALESSIO
   if (btw(t,12*32,24*32)) {
     float syn=fmod(t-12*32, 128);
     if (syn>=0&&syn<10 || syn>=0+32&&syn<10+32 || syn>=0+64&&syn<10+64 || syn>=0+96&&syn<10+96) {

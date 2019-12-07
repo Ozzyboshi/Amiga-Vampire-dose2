@@ -215,10 +215,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   if(fullscreen)
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
   else
   {
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);//|SDL_DOUBLEBUF);
     SDL_WM_SetCaption("dose 2 by mfx",NULL);
   }
 
@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
   Mix_Music *music = NULL;
   Mix_Chunk *scratch = NULL;
 //Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, AUDIO_S16LSB, 1, 4096*2 ) == -1 )
+    if( Mix_OpenAudio( 8000, AUDIO_S16LSB, 1, 4096 ) == -1 )
     {
           fprintf(stderr,"Error mix audio\n");
         return 1;    
@@ -246,8 +246,13 @@ int main(int argc, char *argv[]) {
 
  //     return 1;
     }
+  Mix_Chunk *wav , *wav2 ;  // For Sounds
+
+    wav = Mix_LoadWAV("data/italo160mono.wav");
+
 
   
+   initdemo();
 
     
      
@@ -255,23 +260,25 @@ int main(int argc, char *argv[]) {
 
     #ifdef NUOVAMUSICA
            //If there is no music playing
-  if( Mix_PlayingMusic() == 0 )
+  if( 1|| Mix_PlayingMusic() == 0 )
   {
-    if( Mix_PlayMusic( music, 0 ) == -1 )
+    /*if( Mix_PlayMusic( music, -1 ) == -1 )
     {
       fprintf(stderr,"Error playing music\n");
       return 1;
-    }
-    while( Mix_PlayingMusic() == 0  ) {}
+    }*/
+
+                    Mix_PlayChannel(-1,wav,0); 
+
+    /*while( Mix_PlayingMusic() == 0  ) {}
       Mix_PauseMusic();
 
-       sleep(2);
+       sleep(2);*/
 
   }
   #endif
  
 
-   initdemo();
 
      int musicstarted=0;
 
@@ -279,11 +286,12 @@ int main(int argc, char *argv[]) {
     {
              #ifdef NUOVAMUSICA
         //Mix_Resume(-1);
-      Mix_ResumeMusic();
+      //Mix_ResumeMusic();
 
         musicstarted=1;
 #endif
     }
+    
 
 
 
@@ -315,7 +323,7 @@ int main(int argc, char *argv[]) {
     //Lfb *l;
     //static int oldf;
     //int ttemp;
-    float aikaero=.02;
+    // ALESSIO non serve float aikaero=.02;
     SDL_Event eve;
     timex=SDL_GetTicks()-time0;
 
@@ -333,7 +341,7 @@ int main(int argc, char *argv[]) {
     mark();
     con=1, bri=0;
 
-    aikaero=0.0;//1.43;//oli 1.45
+    // ALESSIO NON SERVE aikaero=0.0;//1.43;//oli 1.45
 
     //if (kcnt[74]) skip=-44100*10, kcnt[74]=0;
     //if (kcnt[78]) skip=44100*10, kcnt[78]=0;
@@ -348,7 +356,12 @@ int main(int argc, char *argv[]) {
 
     {
 //    float f=(aikah/44100.0/4.0/60.0)*132.3412*4 - aikaero*32;
+
+      /*** ALESSIO ERA COSI
     float f=(timex/1000.0/60.0)*132.3412*4 - aikaero*32;
+
+    ORA COSI*/
+    float f=(timex/1000.0/60.0)*132.3412*4;
   
     rundemo(f);//-fsin2(f*.25)*.0);
     }
