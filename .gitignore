@@ -2,3 +2,4 @@ Makefile~
 src/Makefile~
 src/Main~
 src/*.o
+src/.gdb_history
