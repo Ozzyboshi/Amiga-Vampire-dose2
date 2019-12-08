@@ -22,4 +22,49 @@ https://www.youtube.com/watch?v=xOxqMY4ZwRk&t=6s
 
 https://www.youtube.com/watch?v=JHGKR_NFnYw
 
+# Lyrics
+
+```
+One day imma gona to Malta to bigga hotell
+In the morning i go down to eat a breakfast
+I tell the waitress i wanna 2 pisses of toast
+She brings me only one piss
+I tell her i wanna to piss
+She says go to the toilet
+I say you dont understand
+I want to piss on my plate
+She say you better no piss on the plate
+You son of a bitch!
+I dont even know the lady
+And she calls me a son of a bitch
+
+Later
+
+I go to eat at a bigga resturant
+The waitress bring me a spoon and
+a knife, but no fork!
+I tell her i wanna the fuck
+She tellin me everyone wanna fuck
+I tell her you dont understand
+I wanna fucka on the table
+She say you better not fuck on the table
+You son of a bitch!
+I dont even know the lady
+And she calls me a son of a bitch
+
+So i go back to my room in a hotel
+And there is no sheeats on the bed
+Call the manager and im tellin him i wanna shit!
+He tellin me go to the toilet
+I say you dont understand
+I wanna shit on my bed!
+He say you better not shit on my bed
+You son of you bitch!
+
+I go to the check out
+and the man in the desk says
+Peace on you, i said piss on you too
+you son of a bitch!
+Im goin back to Italia, Arrivederci
+```
 
