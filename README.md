@@ -77,8 +77,7 @@ I usually take advantage of Docker + Bebbo gcc + Amigaport SDL 1.2 to port stuff
 ```
 
 However It could be better to download the latest release and compile it: just go to  
-https://github.com/Ozzyboshi/Amiga-Vampire-dose2/releases/tag/v1.0 
-
+https://github.com/Ozzyboshi/Amiga-Vampire-dose2/releases/latest  
 download the zip file, unzip it and run the above docker command adjusting the path in -v argument.
 
 # Testing
