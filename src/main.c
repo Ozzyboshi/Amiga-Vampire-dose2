@@ -119,7 +119,6 @@ int main(int argc, char *argv[]) {
   float t;
 //  MIDASstreamHandle stream=0;
   static char buffer[200000];
-  FILE *fp;
   OggVorbis_File oggi;
 //  Video *v;
   int bufsiz;
@@ -127,7 +126,8 @@ int main(int argc, char *argv[]) {
   SDL_Surface *screen;
   SDL_Color colors[256];
   static int graffa[160*480];
-  static SDL_AudioSpec aanispex;
+
+  fprintf(stdout,"Classic Amiga port by Ozzyboshi - https://github.com/Ozzyboshi/Amiga-Vampire-dose2\n\n");
 
 //  signal(SIGSEGV, fla);
 /*  hiippi=malloc(30000000); if (!hiippi) {
@@ -144,66 +144,9 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+
+  atexit(SDL_Quit);
   
-    
-
-  
-
-
-  fp=fopen(moduleName, "rb");
-  if (!fp) {
-    fprintf(stderr, "error in reading %s", moduleName);
-    return 1;
-  }
-
-  int ret=ov_open(fp, &oggi, 0, 0);
-
-  if (ret<0)
-  {
-    fprintf(stderr, "error in parsing ogg vorbis %s", moduleName);
-    if (ret==OV_EREAD) fprintf(stderr," A read from media returned an error.");
-    if (ret==OV_ENOTVORBIS) fprintf(stderr," Bitstream is not Vorbis data.");
-    if (ret==OV_EVERSION) fprintf(stderr,"Vorbis version mismatch.");
-    if (ret==OV_EBADHEADER) fprintf(stderr," Invalid Vorbis bitstream header.");
-    if (ret==OV_EFAULT) fprintf(stderr,"Internal logic fault; indicates a bug or heap/stack corruption.");
-    NOAUDIO=1;
-    //system("run pc:dose2/vorbisplayer pc:dose2/data/italo160.ogg");
-     
-  }
-  NOAUDIO=1;
-
-
-  if (NOAUDIO==0)
-  {
-    {
-      vorbis_info *vi=ov_info(&oggi, -1);
-    }
-
-
-
-    atexit(SDL_Quit);
-    
-
-    aanispex.freq=8000;
-    aanispex.format=AUDIO_S16;
-    aanispex.channels=2;
-    aanispex.samples=4096;
-    aanispex.callback=audioback;
-    aanispex.userdata=&oggi;
-    if (SDL_OpenAudio(&aanispex, 0)<0) {
-      fprintf(stderr, "sdlerror %s\n", SDL_GetError());
-      return 1;
-    }
-
-
-
-
-
-
-
-    
-  }
-  else atexit(SDL_Quit);
 
   if(argc==2 && !strcmp(argv[1],"-window"))
     fullscreen=0;
@@ -215,10 +158,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   if(fullscreen)
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
   else
   {
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE);//|SDL_DOUBLEBUF);
     SDL_WM_SetCaption("dose 2 by mfx",NULL);
   }
 
@@ -227,89 +170,28 @@ int main(int argc, char *argv[]) {
 
   t=0;
   bytesleft=0;
-//  if (NOAUDIO==1) system("run playogg data/italo162.ogg");
-  #define NUOVAMUSICA
-#ifdef NUOVAMUSICA
-  Mix_Music *music = NULL;
-  Mix_Chunk *scratch = NULL;
+
+
+  Mix_Chunk *wav = NULL;
 //Initialize SDL_mixer
-    if( Mix_OpenAudio( 8000, AUDIO_S16LSB, 1, 4096 ) == -1 )
-    {
-          fprintf(stderr,"Error mix audio\n");
-        return 1;    
-    }
-    music = Mix_LoadMUS( "data/italo160mono.wav" );
-    if (music==NULL)
-    {
-      fprintf(stderr,"error opening wav\n");
-          printf("Mix_LoadMUS(\"music.mp3\"): %s\n", Mix_GetError());
-
- //     return 1;
-    }
-  Mix_Chunk *wav , *wav2 ;  // For Sounds
-
-    wav = Mix_LoadWAV("data/italo160mono.wav");
-
-
-  
-   initdemo();
-
-    
-     
-#endif
-
-    #ifdef NUOVAMUSICA
-           //If there is no music playing
-  if( 1|| Mix_PlayingMusic() == 0 )
+  if( Mix_OpenAudio( 8000, AUDIO_S16LSB, 1, 512 ) == -1 )
   {
-    /*if( Mix_PlayMusic( music, -1 ) == -1 )
-    {
-      fprintf(stderr,"Error playing music\n");
-      return 1;
-    }*/
-
-                    Mix_PlayChannel(-1,wav,0); 
-
-    /*while( Mix_PlayingMusic() == 0  ) {}
-      Mix_PauseMusic();
-
-       sleep(2);*/
-
+    fprintf(stderr,"Error mix audio\n");
+    return 1;    
   }
-  #endif
- 
 
+  wav = Mix_LoadWAV("data/italo160mono.wav");
+  if (wav==NULL)
+  {
+    fprintf(stderr,"data/italo160mono.wav - %s\n", Mix_GetError());
+    return 1;
+  }
+  
+  initdemo();
 
-     int musicstarted=0;
-
-    if (musicstarted==0)
-    {
-             #ifdef NUOVAMUSICA
-        //Mix_Resume(-1);
-      //Mix_ResumeMusic();
-
-        musicstarted=1;
-#endif
-    }
     
+  Mix_PlayChannel(-1,wav,0); 
 
-
-
-
-/*if (NOAUDIO==0) SDL_PauseAudio(0);
-    while( Mix_PlayingMusic() == 0  ) {
-    time0=SDL_GetTicks();
-  }*/
-  
-
-     
-
-
-
-
-
-  
-//if (NOAUDIO==1) system("run vorbisplayer data/italo162.ogg");
   time0=SDL_GetTicks();
 
 
@@ -330,10 +212,7 @@ int main(int argc, char *argv[]) {
     while (SDL_PollEvent(&eve))
     {
       if (eve.type==SDL_KEYDOWN||eve.type==SDL_QUIT) stopnow++;
-#ifdef OSX
-      /* On Mac it's normal to exit with mouse press */
       if(eve.type==SDL_MOUSEBUTTONDOWN) stopnow++;
-#endif
     }
     if (SDL_LockSurface(screen)<0) continue;
 
@@ -399,31 +278,13 @@ int main(int argc, char *argv[]) {
     release();
   }
 
-  if (NOAUDIO==0) SDL_CloseAudio();
-
-
-  if (NOAUDIO==0) ov_clear(&oggi);
-#ifdef NUOVAMUSICA
-  Mix_FreeMusic( music );
-#endif
+  Mix_FreeChunk( wav );
   Mix_CloseAudio();
 
-  fclose(fp);
-/*  if ( !MIDASstopStream(stream) )
-    MIDASerror();
-  if ( !MIDAScloseChannels() )
-      MIDASerror();
-  if ( !MIDASstopBackgroundPlay() )
-      MIDASerror();
-*/
 
-  //if (!MIDASstopModule(module)) MIDASerror();
-  //if (!MIDASfreeModule(module)) MIDASerror();
-//  if (!MIDASclose()) MIDASerror();
-
-//  set_intr(0x9, oldk);
-  //vid_close();
-  //SDL_Quit();
-
+  SDL_FreeSurface(screen);
+  SDL_Quit();
+  fprintf(stdout,"Thanks for watching - exiting...\n\n");
+  exit(0);
   return 0;
 }

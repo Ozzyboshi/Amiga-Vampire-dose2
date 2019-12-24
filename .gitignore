@@ -3,3 +3,6 @@ src/Makefile~
 src/Main~
 src/*.o
 src/.gdb_history
+dose2
+src/dose2
+.gitignore~

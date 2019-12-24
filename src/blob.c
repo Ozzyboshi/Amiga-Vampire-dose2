@@ -101,6 +101,21 @@ void blob_draw(Blob *b, Layer *l) {
   m[2][2]=dir.z;
 }*/
 
+#define SQRT_MAGIC_F 0x5f3759df 
+ float  sqrt2(const float x)
+{
+  const float xhalf = 0.5f*x;
+ 
+  union // get bits for floating value
+  {
+    float x;
+    int i;
+  } u;
+  u.x = x;
+  u.i = SQRT_MAGIC_F - (u.i >> 1);  // gives initial guess y0
+  return x*u.x*(1.5f - xhalf*u.x*u.x);// Newton step, repeating increases accuracy 
+}
+
 void blob_lisaatuneli(Blob *dest, float p, float a, Vector *pos) {
   Matrix camera;
   Vector suunta;
@@ -127,13 +142,13 @@ void blob_lisaatuneli(Blob *dest, float p, float a, Vector *pos) {
       ax=suunta.x*suunta.x+suunta.y*suunta.y+suunta.z*suunta.z;
       //bx=suunta.x*pos->x+suunta.y*pos->y+suunta.z*pos->z;
 
-      t=(sqrt(bx*bx-ax*cx)-bx)/ax;
+      t=(sqrt2(bx*bx-ax*cx)-bx)/ax;
       px=pos->x+t*suunta.x;
       py=pos->y+t*suunta.y;
       pz=pos->z+t*suunta.z;
 
-      f=(atan2(px, py)+a)+pz/**sin(t)*/*20;
-      f*=0.5/pi; bp++->v+=(fabs(f-fist2(f))-0.25)*p*4;
+      f=(atan2f(px, py)+a)+pz/**sin(t)*/*20;
+      f*=0.5/pi; bp++->v+=(fabsf(f-fist2(f))-0.25)*p*4;
       //bp++->v+=sin(f)*p;
       suunta.x+=camera.i.x;
       suunta.y+=camera.i.y;
@@ -188,19 +203,19 @@ void blob_lisaa2xtuneli(Blob *dest, float p, float a, Vector *pos, Vector *pos2)
       ax2=suunta2.x*suunta2.x+suunta2.y*suunta2.y+suunta2.z*suunta2.z;
       //bx=suunta.x*pos->x+suunta.y*pos->y+suunta.z*pos->z;
 
-      t=(sqrt(bx*bx-ax*cx)-bx)/ax;
+      t=(sqrt2(bx*bx-ax*cx)-bx)/ax;
       px=pos->x+t*suunta.x;
       py=pos->y+t*suunta.y;
       pz=pos->z+t*suunta.z;
-      t2=(sqrt(bx2*bx2-ax2*cx2)-bx2)/ax2;
+      t2=(sqrt2(bx2*bx2-ax2*cx2)-bx2)/ax2;
       px2=pos2->x+t2*suunta2.x;
       py2=pos2->y+t2*suunta2.y;
       pz2=pos2->z+t2*suunta2.z;
       //pz=1-pz; pz2=1-pz2;
       pz+=1; pz2+=1;
 
-      f=(atan2(px, py)+a)-atan2(px2, py2)+atan2(1, .1/pz-.1/pz2)*9;
-      f*=0.5/pi; bp++->v+=(fabs(f-fist2(f))-0.25)*p*4;
+      f=(atan2f(px, py)+a)-atan2f(px2, py2)+atan2(1, .1/pz-.1/pz2)*9;
+      f*=0.5/pi; bp++->v+=(fabsf(f-fist2(f))-0.25)*p*4;
       //bp++->v+=fsin(f)*p;
       suunta.x+=camera.i.x;
       suunta.y+=camera.i.y;
