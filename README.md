@@ -68,3 +68,17 @@ you son of a bitch!
 Im goin back to Italia, Arrivederci
 ```
 
+# Compiling
+I usually take advantage of Docker + Bebbo gcc + Amigaport SDL 1.2 to port stuff to m68k:
+
+```
+   git clone https://github.com/Ozzyboshi/Amiga-Vampire-dose2.git
+   docker run -it --rm -v $(pwd)/Amiga-Vampire-dose2:/data -w /data ozzyboshi/bebbo-amiga-gcc:20191208 bash -c 'make && make dist'
+```
+
+# Testing
+Tested on:
+
+- Vampire v600 core 2.11 - Coffin r52 (Ozzyboshi)
+- Vampire v600 core 2.12RC3 - Coffin r55 (Dr Procton)
+
