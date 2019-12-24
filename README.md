@@ -73,7 +73,7 @@ I usually take advantage of Docker + Bebbo gcc + Amigaport SDL 1.2 to port stuff
 
 ```
    git clone https://github.com/Ozzyboshi/Amiga-Vampire-dose2.git
-   docker run -it --rm -v $(pwd)/Amiga-Vampire-dose2:/data -w /data ozzyboshi/bebbo-amiga-gcc:20191208 bash -c 'make && make dist'
+   docker run -it --rm -v $(pwd)/Amiga-Vampire-dose2:/data -w /data ozzyboshi/bebbo-amiga-gcc:20191224 bash -c 'make && make dist'
 ```
 
 # Testing
