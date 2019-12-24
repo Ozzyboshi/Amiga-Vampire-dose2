@@ -34,7 +34,6 @@
 #define OV_ENOSEEK    -138
 
 
-char *moduleName="data/italo162.ogg";
 volatile unsigned frame;
 float fsin2(float);
 int stopnow=0;
@@ -127,7 +126,7 @@ int main(int argc, char *argv[]) {
   SDL_Color colors[256];
   static int graffa[160*480];
 
-  fprintf(stdout,"Classic Amiga port by Ozzyboshi - https://github.com/Ozzyboshi/Amiga-Vampire-dose2\n\n");
+  fprintf(stdout,"\n\nClassic Amiga port by Ozzyboshi - https://github.com/Ozzyboshi/Amiga-Vampire-dose2\n\n");
 
 //  signal(SIGSEGV, fla);
 /*  hiippi=malloc(30000000); if (!hiippi) {
@@ -139,7 +138,6 @@ int main(int argc, char *argv[]) {
 
 // This one moved here because of OSX oddities...
   if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO)<0) {
-//  if (SDL_Init(SDL_INIT_VIDEO)<0) {
     fprintf(stderr, "sdlerror %s\n", SDL_GetError());
     return 1;
   }
@@ -158,10 +156,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   if(fullscreen)
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_FULLSCREEN);//|SDL_DOUBLEBUF);
   else
   {
-    screen=SDL_SetVideoMode(640, 480, 8, SDL_HWSURFACE);//|SDL_DOUBLEBUF);
+    screen=SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE);//|SDL_DOUBLEBUF);
     SDL_WM_SetCaption("dose 2 by mfx",NULL);
   }
 
